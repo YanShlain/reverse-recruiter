@@ -19,8 +19,14 @@ async def ensure_session(
         await gateway.ensure_session()
         return {"status": "ok"}
     except McpClientError as e:
-        logger.error("ensure_session failed: %s", e.message, exc_info=True)
+        logger.error(
+            "ensure_session failed code=%s message=%s",
+            e.code,
+            e.message,
+            exc_info=True,
+        )
+        status = 401 if e.code == "session_expired" else 503
         raise HTTPException(
-            status_code=401,
-            detail={"error": "session_expired", "message": e.message},
+            status_code=status,
+            detail={"error": e.code, "message": e.message},
         ) from e

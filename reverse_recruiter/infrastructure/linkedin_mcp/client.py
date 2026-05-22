@@ -15,6 +15,20 @@ class McpClientError(Exception):
         super().__init__(message)
 
 
+def _transport_error(exc: httpx.RequestError, url: str) -> McpClientError:
+    logger.error(
+        "MCP request failed url=%s error=%s",
+        url,
+        exc,
+        exc_info=True,
+    )
+    return McpClientError(
+        f"MCP server unreachable at {url}. "
+        "Ensure LinkedIn MCP is running and MCP_BASE_URL is correct.",
+        code="mcp_unavailable",
+    )
+
+
 class McpHttpClient:
     """JSON-RPC client for MCP Streamable HTTP transport."""
 
@@ -25,20 +39,23 @@ class McpHttpClient:
 
     async def _initialize(self, client: httpx.AsyncClient) -> None:
         logger.info("MCP initialize url=%s", self._base_url)
-        resp = await client.post(
-            self._base_url,
-            json={
-                "jsonrpc": "2.0",
-                "id": str(uuid.uuid4()),
-                "method": "initialize",
-                "params": {
-                    "protocolVersion": "2024-11-05",
-                    "capabilities": {},
-                    "clientInfo": {"name": "reverse-recruiter", "version": "1.0"},
+        try:
+            resp = await client.post(
+                self._base_url,
+                json={
+                    "jsonrpc": "2.0",
+                    "id": str(uuid.uuid4()),
+                    "method": "initialize",
+                    "params": {
+                        "protocolVersion": "2024-11-05",
+                        "capabilities": {},
+                        "clientInfo": {"name": "reverse-recruiter", "version": "1.0"},
+                    },
                 },
-            },
-            headers={"Accept": "application/json, text/event-stream"},
-        )
+                headers={"Accept": "application/json, text/event-stream"},
+            )
+        except httpx.RequestError as exc:
+            raise _transport_error(exc, self._base_url) from exc
         logger.info("MCP initialize status=%s", resp.status_code)
         if resp.status_code >= 400:
             logger.error(
@@ -65,16 +82,19 @@ class McpHttpClient:
                 name,
                 sorted(arguments.keys()),
             )
-            resp = await client.post(
-                self._base_url,
-                json={
-                    "jsonrpc": "2.0",
-                    "id": str(uuid.uuid4()),
-                    "method": "tools/call",
-                    "params": {"name": name, "arguments": arguments},
-                },
-                headers=headers,
-            )
+            try:
+                resp = await client.post(
+                    self._base_url,
+                    json={
+                        "jsonrpc": "2.0",
+                        "id": str(uuid.uuid4()),
+                        "method": "tools/call",
+                        "params": {"name": name, "arguments": arguments},
+                    },
+                    headers=headers,
+                )
+            except httpx.RequestError as exc:
+                raise _transport_error(exc, self._base_url) from exc
             logger.info("MCP tools/call tool=%s status=%s", name, resp.status_code)
             if resp.status_code >= 400:
                 logger.error(
