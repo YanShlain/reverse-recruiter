@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -6,10 +7,14 @@ from fastapi.responses import JSONResponse
 
 from reverse_recruiter.api.routers import apply, health, pipeline, search, session
 from reverse_recruiter.config import settings
+from reverse_recruiter.logging_config import configure_logging
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    configure_logging()
     settings.data_dir.mkdir(parents=True, exist_ok=True)
     yield
 
@@ -26,9 +31,17 @@ def create_app() -> FastAPI:
 
     @app.exception_handler(Exception)
     async def unhandled(request: Request, exc: Exception):
+        logger.error(
+            "Unhandled exception path=%s",
+            request.url.path,
+            exc_info=True,
+        )
         return JSONResponse(
             status_code=500,
-            content={"error": "internal_error", "message": str(exc)},
+            content={
+                "error": "internal_error",
+                "message": "An unexpected error occurred",
+            },
         )
 
     prefix = "/api/v1"
