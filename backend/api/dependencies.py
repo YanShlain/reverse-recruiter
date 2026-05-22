@@ -1,16 +1,16 @@
 from functools import lru_cache
 from pathlib import Path
 
-from reverse_recruiter.config import settings
-from reverse_recruiter.infrastructure.json.job_store import JsonJobStore
-from reverse_recruiter.infrastructure.json.saved_search_store import JsonSavedSearchStore
-from reverse_recruiter.infrastructure.json.settings_store import JsonSettingsStore
-from reverse_recruiter.infrastructure.linkedin_mcp.gateway import McpLinkedInGateway, MockLinkedInGateway
-from reverse_recruiter.infrastructure.scoring.llm_scorer import LlmMatchScorer
-from reverse_recruiter.infrastructure.scoring.rules_scorer import RulesMatchScorer
-from reverse_recruiter.services.pipeline_service import PipelineService
-from reverse_recruiter.services.saved_search_service import SavedSearchService
-from reverse_recruiter.services.search_service import SearchService
+from backend.config import settings
+from backend.infrastructure.json.job_store import JsonJobStore
+from backend.infrastructure.json.saved_search_store import JsonSavedSearchStore
+from backend.infrastructure.json.settings_store import JsonSettingsStore
+from backend.infrastructure.linkedin_mcp.gateway import McpLinkedInGateway, MockLinkedInGateway
+from backend.infrastructure.scoring.llm_scorer import LlmMatchScorer
+from backend.infrastructure.scoring.rules_scorer import RulesMatchScorer
+from backend.services.pipeline_service import PipelineService
+from backend.services.saved_search_service import SavedSearchService
+from backend.services.search_service import SearchService
 
 
 @lru_cache

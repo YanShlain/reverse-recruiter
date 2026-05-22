@@ -1,7 +1,7 @@
 import re
 
-from reverse_recruiter.domain.entities import Job, ProfileSnapshot
-from reverse_recruiter.domain.gateways import IMatchScorer
+from backend.domain.entities import Job, ProfileSnapshot
+from backend.domain.gateways import IMatchScorer
 
 
 def _tokenize(text: str) -> set[str]:

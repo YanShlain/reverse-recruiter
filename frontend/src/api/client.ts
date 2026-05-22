@@ -1,3 +1,4 @@
+/** All UI traffic goes to the Python backend; never call LinkedIn MCP from the browser. */
 const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {

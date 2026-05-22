@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from reverse_recruiter.api.dependencies import get_pipeline_service
-from reverse_recruiter.api.models import ApplyRequest, ApplyResponse
-from reverse_recruiter.services.pipeline_service import PipelineService, PipelineServiceError
+from backend.api.dependencies import get_pipeline_service
+from backend.api.models import ApplyRequest, ApplyResponse
+from backend.services.pipeline_service import PipelineService, PipelineServiceError
 
 router = APIRouter(tags=["apply"])
 

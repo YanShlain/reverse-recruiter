@@ -1,6 +1,6 @@
 import logging
 
-from reverse_recruiter.config import settings
+from backend.config import settings
 
 
 def configure_logging() -> None:

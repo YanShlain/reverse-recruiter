@@ -2,9 +2,9 @@ from datetime import datetime, timezone
 
 import pytest
 
-from reverse_recruiter.domain.entities import PipelineJob
-from reverse_recruiter.domain.enums import LifecycleState, ProgressStage
-from reverse_recruiter.services.pipeline_service import PipelineService, PipelineServiceError
+from backend.domain.entities import PipelineJob
+from backend.domain.enums import LifecycleState, ProgressStage
+from backend.services.pipeline_service import PipelineService, PipelineServiceError
 
 
 class InMemoryJobStore:

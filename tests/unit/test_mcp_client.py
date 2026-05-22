@@ -1,6 +1,6 @@
 import pytest
 
-from reverse_recruiter.infrastructure.linkedin_mcp.client import McpClientError, McpHttpClient
+from backend.infrastructure.linkedin_mcp.client import McpClientError, McpHttpClient
 
 
 @pytest.mark.asyncio

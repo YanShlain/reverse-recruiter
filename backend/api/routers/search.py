@@ -1,20 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from reverse_recruiter.api.dependencies import (
+from backend.api.dependencies import (
     get_saved_search_service,
     get_search_service,
     get_settings_store,
 )
-from reverse_recruiter.api.models import (
+from backend.api.models import (
     JobRow,
     SavedSearchCreateRequest,
     SearchRequest,
     SettingsResponse,
 )
-from reverse_recruiter.domain.entities import Job
-from reverse_recruiter.infrastructure.json.settings_store import JsonSettingsStore
-from reverse_recruiter.services.saved_search_service import SavedSearchService
-from reverse_recruiter.services.search_service import SearchService, SearchServiceError
+from backend.domain.entities import Job
+from backend.infrastructure.json.settings_store import JsonSettingsStore
+from backend.services.saved_search_service import SavedSearchService
+from backend.services.search_service import SearchService, SearchServiceError
 
 router = APIRouter(prefix="/search", tags=["search"])
 

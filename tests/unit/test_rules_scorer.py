@@ -1,7 +1,7 @@
 import pytest
 
-from reverse_recruiter.domain.entities import Job, ProfileSnapshot
-from reverse_recruiter.infrastructure.scoring.rules_scorer import RulesMatchScorer
+from backend.domain.entities import Job, ProfileSnapshot
+from backend.infrastructure.scoring.rules_scorer import RulesMatchScorer
 
 
 @pytest.mark.asyncio

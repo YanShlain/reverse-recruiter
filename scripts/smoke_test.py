@@ -4,7 +4,7 @@ import os
 os.environ.setdefault("MOCK_MCP", "true")
 os.environ.setdefault("DATA_DIR", "data")
 
-from reverse_recruiter.api.dependencies import get_search_service
+from backend.api.dependencies import get_search_service
 
 
 async def main() -> None:

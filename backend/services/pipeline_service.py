@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from reverse_recruiter.domain.entities import InterviewEvent, PipelineJob
-from reverse_recruiter.domain.enums import InterviewType, LifecycleState, ProgressStage
-from reverse_recruiter.domain.repositories import IJobStore
+from backend.domain.entities import InterviewEvent, PipelineJob
+from backend.domain.enums import InterviewType, LifecycleState, ProgressStage
+from backend.domain.repositories import IJobStore
 
 
 class PipelineServiceError(Exception):

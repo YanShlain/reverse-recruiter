@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from reverse_recruiter.domain.entities import ProfileSnapshot, SavedSearch
-from reverse_recruiter.domain.gateways import ILinkedInGateway
-from reverse_recruiter.domain.repositories import ISavedSearchStore
+from backend.domain.entities import ProfileSnapshot, SavedSearch
+from backend.domain.gateways import ILinkedInGateway
+from backend.domain.repositories import ISavedSearchStore
 
 
 class SavedSearchService:

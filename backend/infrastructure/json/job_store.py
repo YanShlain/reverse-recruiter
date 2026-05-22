@@ -1,9 +1,9 @@
 import asyncio
 from pathlib import Path
 
-from reverse_recruiter.domain.entities import Job, PipelineJob
-from reverse_recruiter.domain.enums import LifecycleState
-from reverse_recruiter.infrastructure.json.atomic import read_json, write_json_atomic
+from backend.domain.entities import Job, PipelineJob
+from backend.domain.enums import LifecycleState
+from backend.infrastructure.json.atomic import read_json, write_json_atomic
 
 
 class JsonJobStore:

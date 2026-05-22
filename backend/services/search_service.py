@@ -1,11 +1,11 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from reverse_recruiter.domain.entities import Job, PipelineJob, ProfileSnapshot
-from reverse_recruiter.domain.gateways import ILinkedInGateway, IMatchScorer
-from reverse_recruiter.domain.repositories import IJobStore, ISavedSearchStore
-from reverse_recruiter.infrastructure.linkedin_mcp.client import McpClientError
-from reverse_recruiter.services.pipeline_service import PipelineService
+from backend.domain.entities import Job, PipelineJob, ProfileSnapshot
+from backend.domain.gateways import ILinkedInGateway, IMatchScorer
+from backend.domain.repositories import IJobStore, ISavedSearchStore
+from backend.infrastructure.linkedin_mcp.client import McpClientError
+from backend.services.pipeline_service import PipelineService
 
 
 class SearchServiceError(Exception):

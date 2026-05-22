@@ -2,15 +2,15 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from reverse_recruiter.api.dependencies import get_pipeline_service
-from reverse_recruiter.api.models import (
+from backend.api.dependencies import get_pipeline_service
+from backend.api.models import (
     ConfirmRequest,
     InterviewCreateRequest,
     InterviewUpdateRequest,
     PipelineUpdateRequest,
 )
-from reverse_recruiter.domain.enums import InterviewType, LifecycleState, ProgressStage
-from reverse_recruiter.services.pipeline_service import PipelineService, PipelineServiceError
+from backend.domain.enums import InterviewType, LifecycleState, ProgressStage
+from backend.services.pipeline_service import PipelineService, PipelineServiceError
 
 router = APIRouter(prefix="/pipeline", tags=["pipeline"])
 

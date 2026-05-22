@@ -3,7 +3,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from reverse_recruiter.domain.enums import InterviewType, LifecycleState, ProgressStage
+from backend.domain.enums import InterviewType, LifecycleState, ProgressStage
 
 
 class InterviewEvent(BaseModel):

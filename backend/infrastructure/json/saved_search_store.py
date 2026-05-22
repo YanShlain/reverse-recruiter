@@ -2,8 +2,8 @@ import asyncio
 from pathlib import Path
 from uuid import uuid4
 
-from reverse_recruiter.domain.entities import SavedSearch
-from reverse_recruiter.infrastructure.json.atomic import read_json, write_json_atomic
+from backend.domain.entities import SavedSearch
+from backend.infrastructure.json.atomic import read_json, write_json_atomic
 
 
 class JsonSavedSearchStore:

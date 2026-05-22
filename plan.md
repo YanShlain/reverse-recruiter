@@ -79,7 +79,7 @@ flowchart LR
 ### 3.2 Suggested repository layout
 
 ```text
-reverse_recruiter/
+backend/
   api/                    # Presentation: routers, dependencies, request/response models
   services/               # SearchService, PipelineService, SavedSearchService
   domain/
@@ -404,7 +404,7 @@ flowchart LR
 | Service | Image / build | Ports | Volumes |
 |---------|---------------|-------|---------|
 | `frontend` | `frontend/Dockerfile` | `5173:5173` or nginx `8080` | — |
-| `api` | `reverse_recruiter/Dockerfile` | `8000:8000` | `./data:/app/data` |
+| `api` | `backend/Dockerfile` | `8000:8000` | `./data:/app/data` |
 | `linkedin-mcp` | Upstream MCP image (pin version) | internal | MCP session/cookies volume TBD at spike |
 
 API env: `MCP_BASE_URL`, `DATA_DIR`, `LLM_API_KEY` (optional), `LOG_LEVEL`.

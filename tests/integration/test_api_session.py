@@ -1,6 +1,6 @@
-from reverse_recruiter.api.dependencies import get_gateway
-from reverse_recruiter.infrastructure.linkedin_mcp.gateway import McpLinkedInGateway
-from reverse_recruiter.main import app
+from backend.api.dependencies import get_gateway
+from backend.infrastructure.linkedin_mcp.gateway import McpLinkedInGateway
+from backend.main import app
 
 
 def test_session_ensure_mcp_unavailable(client):

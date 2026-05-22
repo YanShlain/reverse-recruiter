@@ -8,9 +8,9 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project --no-dev
 
-COPY reverse_recruiter/ reverse_recruiter/
+COPY backend/ backend/
 RUN uv sync --frozen --no-dev
 
 ENV DATA_DIR=/app/data
 EXPOSE 8000
-CMD ["uv", "run", "uvicorn", "reverse_recruiter.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

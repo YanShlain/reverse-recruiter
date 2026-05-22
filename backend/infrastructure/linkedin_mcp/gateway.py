@@ -1,8 +1,8 @@
 import os
 from typing import Any
 
-from reverse_recruiter.domain.entities import Job, ProfileSnapshot
-from reverse_recruiter.infrastructure.linkedin_mcp.client import McpClientError, McpHttpClient
+from backend.domain.entities import Job, ProfileSnapshot
+from backend.infrastructure.linkedin_mcp.client import McpClientError, McpHttpClient
 
 
 def _profile_from_raw(raw: dict[str, Any]) -> ProfileSnapshot:

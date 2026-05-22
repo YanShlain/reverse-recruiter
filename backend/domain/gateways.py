@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from reverse_recruiter.domain.entities import Job, ProfileSnapshot
+from backend.domain.entities import Job, ProfileSnapshot
 
 
 class ILinkedInGateway(Protocol):

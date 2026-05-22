@@ -8,8 +8,8 @@ os.environ.setdefault("LOG_LEVEL", "warning")
 
 @pytest.fixture(autouse=True)
 def _isolated_data(tmp_path):
-    from reverse_recruiter.api.dependencies import reset_dependencies
-    from reverse_recruiter.config import settings
+    from backend.api.dependencies import reset_dependencies
+    from backend.config import settings
 
     settings.data_dir = tmp_path
     os.environ["DATA_DIR"] = str(tmp_path)
@@ -21,7 +21,7 @@ def _isolated_data(tmp_path):
 @pytest.fixture
 def client():
     from fastapi.testclient import TestClient
-    from reverse_recruiter.main import app
+    from backend.main import app
 
     with TestClient(app) as test_client:
         yield test_client

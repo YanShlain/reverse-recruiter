@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
-from reverse_recruiter.domain.gateways import ILinkedInGateway
-from reverse_recruiter.api.dependencies import get_gateway
+from backend.domain.gateways import ILinkedInGateway
+from backend.api.dependencies import get_gateway
 
 router = APIRouter(tags=["health"])
 

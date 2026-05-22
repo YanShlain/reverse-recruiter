@@ -2,9 +2,9 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from reverse_recruiter.api.dependencies import get_gateway
-from reverse_recruiter.domain.gateways import ILinkedInGateway
-from reverse_recruiter.infrastructure.linkedin_mcp.client import McpClientError
+from backend.api.dependencies import get_gateway
+from backend.domain.gateways import ILinkedInGateway
+from backend.infrastructure.linkedin_mcp.client import McpClientError
 
 logger = logging.getLogger(__name__)
 

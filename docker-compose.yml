@@ -1,5 +1,16 @@
 services:
-  api:
+  linkedin-mcp:
+    image: stickerdaniel/linkedin-mcp-server:latest
+    command: >
+      --transport streamable-http --host 0.0.0.0 --port 3000 --path /mcp
+    volumes:
+      - ${LINKEDIN_MCP_DATA:-~/.linkedin-mcp}:/home/pwuser/.linkedin-mcp
+    environment:
+      TOOL_TIMEOUT: "300"
+    ports:
+      - "3000:3000"
+
+  backend:
     build: .
     ports:
       - "8000:8000"
@@ -11,6 +22,9 @@ services:
       MOCK_MCP: ${MOCK_MCP:-true}
       LLM_API_KEY: ${LLM_API_KEY:-}
       LOG_LEVEL: info
+    depends_on:
+      linkedin-mcp:
+        condition: service_started
 
   frontend:
     build:
@@ -21,4 +35,5 @@ services:
     environment:
       VITE_API_URL: http://localhost:8000/api/v1
     depends_on:
-      - api
+      backend:
+        condition: service_started

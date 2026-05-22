@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from reverse_recruiter.domain.entities import Job, PipelineJob, ProfileSnapshot, SavedSearch
+from backend.domain.entities import Job, PipelineJob, ProfileSnapshot, SavedSearch
 
 
 class IJobStore(Protocol):

@@ -1,7 +1,7 @@
 import asyncio
 from pathlib import Path
 
-from reverse_recruiter.infrastructure.json.atomic import read_json, write_json_atomic
+from backend.infrastructure.json.atomic import read_json, write_json_atomic
 
 
 class JsonSettingsStore:
