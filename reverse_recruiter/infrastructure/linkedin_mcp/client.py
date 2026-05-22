@@ -1,8 +1,11 @@
 import json
+import logging
 import uuid
 from typing import Any
 
 import httpx
+
+logger = logging.getLogger(__name__)
 
 
 class McpClientError(Exception):
@@ -21,6 +24,7 @@ class McpHttpClient:
         self._session_id: str | None = None
 
     async def _initialize(self, client: httpx.AsyncClient) -> None:
+        logger.info("MCP initialize url=%s", self._base_url)
         resp = await client.post(
             self._base_url,
             json={
@@ -35,7 +39,13 @@ class McpHttpClient:
             },
             headers={"Accept": "application/json, text/event-stream"},
         )
+        logger.info("MCP initialize status=%s", resp.status_code)
         if resp.status_code >= 400:
+            logger.error(
+                "MCP initialize failed status=%s body=%s",
+                resp.status_code,
+                resp.text[:500],
+            )
             raise McpClientError(f"MCP initialize failed: {resp.status_code}")
         self._session_id = resp.headers.get("mcp-session-id")
 
@@ -49,6 +59,12 @@ class McpHttpClient:
             }
             if self._session_id:
                 headers["mcp-session-id"] = self._session_id
+            logger.info(
+                "MCP tools/call url=%s tool=%s args_keys=%s",
+                self._base_url,
+                name,
+                sorted(arguments.keys()),
+            )
             resp = await client.post(
                 self._base_url,
                 json={
@@ -59,7 +75,14 @@ class McpHttpClient:
                 },
                 headers=headers,
             )
+            logger.info("MCP tools/call tool=%s status=%s", name, resp.status_code)
             if resp.status_code >= 400:
+                logger.error(
+                    "MCP tool call failed tool=%s status=%s body=%s",
+                    name,
+                    resp.status_code,
+                    resp.text[:500],
+                )
                 raise McpClientError(f"MCP tool call failed: {resp.status_code}")
             return _parse_mcp_response(resp)
 

@@ -74,3 +74,16 @@ def get_search_service(use_llm: bool = False) -> SearchService:
         get_scorer(use_llm),
         get_pipeline_service(),
     )
+
+
+def reset_dependencies() -> None:
+    """Clear cached singletons (tests and hot reload)."""
+    get_data_dir.cache_clear()
+    get_job_store.cache_clear()
+    get_saved_search_store.cache_clear()
+    get_settings_store.cache_clear()
+    get_gateway.cache_clear()
+    get_rules_scorer.cache_clear()
+    get_llm_scorer.cache_clear()
+    get_pipeline_service.cache_clear()
+    get_saved_search_service.cache_clear()

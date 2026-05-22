@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as DateTime
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -60,14 +60,14 @@ class PipelineUpdateRequest(BaseModel):
 
 
 class InterviewCreateRequest(BaseModel):
-    datetime: datetime
+    datetime: DateTime
     with_whom: str = ""
     interview_type: str = "other"
     notes: str = ""
 
 
 class InterviewUpdateRequest(BaseModel):
-    datetime: datetime | None = None
+    datetime: DateTime | None = None
     with_whom: str | None = None
     interview_type: str | None = None
     notes: str | None = None
