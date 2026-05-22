@@ -29,6 +29,15 @@ uv run uvicorn reverse_recruiter.main:app --reload --port 8000
 
 API: http://localhost:8000/api/v1/health
 
+### Tests
+
+```bash
+uv sync --extra dev
+uv run pytest
+```
+
+Uses `MOCK_MCP=true` and a temporary `DATA_DIR` (see `tests/conftest.py`).
+
 ### Frontend
 
 ```bash
