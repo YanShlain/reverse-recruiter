@@ -33,10 +33,11 @@ API: http://localhost:8000/api/v1/health
 
 ```bash
 uv sync --extra dev
-uv run pytest
+uv run pytest              # all tests
+uv run pytest tests/integration  # API integration only
 ```
 
-Uses `MOCK_MCP=true` and a temporary `DATA_DIR` (see `tests/conftest.py`).
+Uses `MOCK_MCP=true` and an isolated per-test `DATA_DIR` (see `tests/conftest.py`).
 
 ### Frontend
 
