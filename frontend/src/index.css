@@ -1,0 +1,151 @@
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+  background: #f6f7f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem 1.25rem;
+  background: #fff;
+  border-bottom: 1px solid #e2e4e8;
+}
+
+.app nav a {
+  margin-right: 1rem;
+  color: #334;
+  text-decoration: none;
+}
+
+.app nav a.active {
+  font-weight: 600;
+  color: #0b5fff;
+}
+
+.page.split {
+  display: grid;
+  grid-template-rows: 1fr 40%;
+  height: calc(100vh - 52px);
+}
+
+.main-pane {
+  overflow: auto;
+  padding: 1rem 1.25rem;
+}
+
+.details-panel {
+  border-top: 1px solid #e2e4e8;
+  background: #fff;
+  padding: 1rem 1.25rem;
+  overflow: auto;
+}
+
+.details-panel.empty {
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.toolbar input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.job-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.job-table th,
+.job-table td {
+  border: 1px solid #e8eaed;
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+}
+
+.job-table tr.dimmed {
+  opacity: 0.55;
+  background: #f0f0f0;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.75rem;
+  background: #e8eefc;
+  border-radius: 3px;
+}
+
+.link-btn {
+  border: none;
+  background: none;
+  color: #0b5fff;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.error {
+  color: #b00020;
+  margin-bottom: 0.5rem;
+}
+
+.subnav a {
+  margin-right: 1rem;
+}
+
+.subnav a.active {
+  font-weight: 600;
+}
+
+.saved-list button {
+  margin-right: 0.5rem;
+}
+
+.interview-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.review {
+  background: #fff8e6;
+  padding: 0.5rem;
+  border-radius: 4px;
+}

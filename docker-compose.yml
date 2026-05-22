@@ -1,0 +1,24 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      DATA_DIR: /app/data
+      MCP_BASE_URL: ${MCP_BASE_URL:-http://linkedin-mcp:3000/mcp}
+      MOCK_MCP: ${MOCK_MCP:-true}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LOG_LEVEL: info
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000/api/v1
+    depends_on:
+      - api

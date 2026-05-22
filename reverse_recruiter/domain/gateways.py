@@ -1,0 +1,19 @@
+from typing import Protocol
+
+from reverse_recruiter.domain.entities import Job, ProfileSnapshot
+
+
+class ILinkedInGateway(Protocol):
+    async def ensure_session(self) -> None: ...
+
+    async def get_my_profile(self) -> ProfileSnapshot: ...
+
+    async def search_jobs(self, filters: dict) -> list[str]: ...
+
+    async def get_job_details(self, job_id: str) -> Job: ...
+
+    async def ping(self) -> bool: ...
+
+
+class IMatchScorer(Protocol):
+    async def score(self, profile: ProfileSnapshot, job: Job) -> float: ...
