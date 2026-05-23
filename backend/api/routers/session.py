@@ -3,6 +3,7 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException
 
 from backend.api.dependencies import get_gateway
+from backend.domain.entities import ProfileSnapshot
 from backend.domain.gateways import ILinkedInGateway
 from backend.infrastructure.linkedin_mcp.client import McpClientError
 
@@ -14,10 +15,9 @@ router = APIRouter(prefix="/session", tags=["session"])
 @router.post("/ensure")
 async def ensure_session(
     gateway: ILinkedInGateway = Depends(get_gateway),
-) -> dict:
+) -> ProfileSnapshot:
     try:
-        await gateway.ensure_session()
-        return {"status": "ok"}
+        return await gateway.get_my_profile()
     except McpClientError as e:
         logger.error(
             "ensure_session failed code=%s message=%s",

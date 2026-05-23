@@ -55,15 +55,20 @@ class McpLinkedInGateway:
         self._client = McpHttpClient(url)
 
     async def ensure_session(self) -> None:
-        try:
-            await self._client.call_tool("get_my_profile", {})
-        except McpClientError as e:
-            if "session" in e.message.lower() or "auth" in e.message.lower():
-                raise McpClientError("LinkedIn session expired; re-authenticate via MCP", code="session_expired") from e
-            raise
+        await self.get_my_profile()
 
     async def get_my_profile(self) -> ProfileSnapshot:
-        raw = await self._client.call_tool("get_my_profile", {"sections": "experience,skills"})
+        try:
+            raw = await self._client.call_tool(
+                "get_my_profile", {"sections": "experience,skills"}
+            )
+        except McpClientError as e:
+            if "session" in e.message.lower() or "auth" in e.message.lower():
+                raise McpClientError(
+                    "LinkedIn session expired; re-authenticate via MCP",
+                    code="session_expired",
+                ) from e
+            raise
         if isinstance(raw, dict):
             return _profile_from_raw(raw)
         return ProfileSnapshot()

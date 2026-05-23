@@ -51,9 +51,19 @@ export interface SavedSearch {
   created_at: string;
 }
 
+export interface ProfileSnapshot {
+  headline: string;
+  location: string;
+  skills: string[];
+  experience_titles: string[];
+  preferred_work_types: string[];
+  raw: Record<string, unknown>;
+}
+
 export const api = {
   health: () => request<{ status: string }>("/health"),
-  ensureSession: () => request<{ status: string }>("/session/ensure", { method: "POST" }),
+  ensureSession: () =>
+    request<ProfileSnapshot>("/session/ensure", { method: "POST" }),
   search: (body: Record<string, unknown>) =>
     request<JobRow[]>("/search", { method: "POST", body: JSON.stringify(body) }),
   listSaved: () => request<SavedSearch[]>("/search/saved"),

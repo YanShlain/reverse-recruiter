@@ -96,6 +96,23 @@ $env:LINKEDIN_MCP_DATA = "$env:USERPROFILE\.linkedin-mcp"
 MOCK_MCP=false docker compose up --build
 ```
 
+**Windows + Docker browser issue:** the `linkedin-mcp` container may fail to start Chromium on a bind-mounted `%USERPROFILE%\.linkedin-mcp` path (`Operation not permitted`). LinkedIn HTTP works, but `get_my_profile` / `search_jobs` fail. Use host MCP instead (same profile dir, no Docker browser):
+
+```powershell
+# Stop compose MCP if it holds port 3000
+docker compose stop linkedin-mcp
+
+# Host MCP (keep this terminal open)
+uvx linkedin-scraper-mcp@latest --transport streamable-http --host 127.0.0.1 --port 3000 --path /mcp
+
+# Local backend (separate terminal)
+$env:MOCK_MCP = "false"
+$env:MCP_BASE_URL = "http://127.0.0.1:3000/mcp"
+uv run uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+Point Cursor MCP at the same HTTP endpoint (`http://localhost:3000/mcp`) instead of `docker run` (which spawns extra containers without a stable port).
+
 | URL | Service |
 |-----|---------|
 | http://localhost:5173 | Frontend (browser → backend API only) |
@@ -127,7 +144,7 @@ curl -s -X POST http://localhost:8000/api/v1/session/ensure
 With live MCP and a valid LinkedIn session:
 
 - `/ready` → `{"status":"ok","mcp":true}`
-- `/session/ensure` → `{"status":"ok"}`
+- `/session/ensure` → profile JSON (`headline`, `skills`, `experience_titles`, `raw`, …)
 
 If `/ready` shows `"mcp":false`, check `docker compose logs backend` for `MCP request failed` or `mcp_unavailable`. Confirm `MCP_BASE_URL` is `http://linkedin-mcp:3000/mcp` (Compose default).
 
@@ -184,7 +201,7 @@ curl -s http://localhost:8000/api/v1/ready
 
 | Method | Path | Description |
 |--------|------|-------------|
-| POST | `/session/ensure` | Ensure LinkedIn session via MCP (`get_my_profile`) |
+| POST | `/session/ensure` | LinkedIn session check via MCP `get_my_profile`; returns profile snapshot |
 
 ```bash
 curl -s -X POST http://localhost:8000/api/v1/session/ensure
